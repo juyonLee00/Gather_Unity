@@ -16,8 +16,8 @@ public class TopDownMovement : MonoBehaviour
     {
         _controller = GetComponent<TopDownCharacterController>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        anim = GameObject.Find("MainSprite").GetComponentInChildren<Animator>();
+        spriteRenderer = GameObject.Find("MainSprite").GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
