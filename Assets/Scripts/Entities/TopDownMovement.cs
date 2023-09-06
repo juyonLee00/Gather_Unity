@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TopDownMovement : MonoBehaviour
 {
+    private Animator anim;
+    private SpriteRenderer spriteRenderer;
+
     private TopDownCharacterController _controller;
 
     private Vector2 _movementDirection = Vector2.zero;
@@ -13,6 +16,8 @@ public class TopDownMovement : MonoBehaviour
     {
         _controller = GetComponent<TopDownCharacterController>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -23,6 +28,8 @@ public class TopDownMovement : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyMovement(_movementDirection);
+        CheckWalking();
+        CheckChangedDirection(_movementDirection);
     }
 
     private void Move(Vector2 direction)
@@ -35,5 +42,30 @@ public class TopDownMovement : MonoBehaviour
         direction = direction * 5;
 
         _rigidbody.velocity = direction;
+    }
+
+    private void CheckWalking()
+    {
+        if (_movementDirection.x != 0 || _movementDirection.y != 0)
+        {
+            anim.SetBool("isWalk", true);
+        }
+
+        else
+        {
+            anim.SetBool("isWalk", false);
+        }
+    }
+
+    private void CheckChangedDirection(Vector2 direction)
+    {
+        if(direction.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 }
