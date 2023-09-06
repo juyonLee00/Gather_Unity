@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GotoNextScene : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void ChangeNextScene()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int curSceneNum = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene("Scene"+(curSceneNum + 1));
     }
 }
